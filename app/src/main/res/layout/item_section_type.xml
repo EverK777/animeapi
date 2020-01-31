@@ -18,10 +18,16 @@
         android:id="@+id/recyclerMangaAnime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/progressPagination"
         android:layout_below="@id/sectionTitle"/>
 
-
-
+    <ProgressBar
+        android:id="@+id/progressPagination"
+        android:layout_width="@dimen/small_icon"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:layout_height="@dimen/small_icon"/>
 
 
 </RelativeLayout>

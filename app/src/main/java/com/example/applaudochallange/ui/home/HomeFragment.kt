@@ -2,19 +2,19 @@ package com.example.applaudochallange.ui.home
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
+import android.widget.ProgressBar
+import androidx.core.view.get
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.applaudochallange.R
 import com.example.applaudochallange.extentions.configureRecycler
 import com.example.applaudochallange.models.AnimeManga
-import com.example.applaudochallange.models.Attributes
 import com.example.applaudochallange.ui.LobbyViewModel
 import com.example.applaudochallange.utils.DynamicAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.item_section_type.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : NavHostFragment() {
 
     private val lobbyViewModel: LobbyViewModel by sharedViewModel()
     private val listSection: ArrayList<ArrayList<AnimeManga>> = ArrayList()
@@ -31,36 +31,45 @@ class HomeFragment : Fragment() {
     private val listAdapter: ArrayList<DynamicAdapter<AnimeManga>> = ArrayList()
     private val offsetList: ArrayList<Int> = ArrayList()
     private var positionScrolled = 0
-
+    private var isLoading = false
+    private lateinit var mainView : View
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+
+        if(savedInstanceState == null){
+            mainView = inflater.inflate(R.layout.fragment_home, container, false)
+        }
+        return mainView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initRecyclerSection()
         lobbyViewModel.getAnimeMangaList().observe(viewLifecycleOwner, Observer {
-            if (it != null) {
+            if (it != null && ::adapterSection.isInitialized) {
                 listSection.addAll(it)
                 adapterSection.notifyDataSetChanged()
-
+                loadingLayout.visibility = View.GONE
             }
         })
         lobbyViewModel.getNextPage().observe(viewLifecycleOwner, Observer {
-            if(!it.isNullOrEmpty()){
+            if (!it.isNullOrEmpty() && !listAdapter.isNullOrEmpty()) {
                 // notify item inserted when can scroll over
-                for ( i in 0 until it.size){
+                for (i in 0 until it.size) {
                     listSection[positionScrolled].add(it[i])
                     listAdapter[positionScrolled].notifyItemInserted(listSection[positionScrolled].size)
+                    recyclerSection[positionScrolled].findViewById<ProgressBar>(R.id.progressPagination)
+                        .visibility = View.GONE
+                    isLoading = false
                 }
             }
         })
-        initRecyclerSection()
-        super.onActivityCreated(savedInstanceState)
     }
+
 
     private fun initRecyclerSection() {
 
@@ -86,9 +95,13 @@ class HomeFragment : Fragment() {
                             if (dx > 0) {
                                 if (visibleItemCount != null) {
                                     if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
-                                        positionScrolled = position
-                                        lobbyViewModel.requestNextPage(position,offsetList[position])
-                                        offsetList[position] += 10
+                                        view.progressPagination.visibility = View.VISIBLE
+                                            positionScrolled = position
+                                            lobbyViewModel.requestNextPage(
+                                                position,
+                                                offsetList[position]
+                                            )
+                                            offsetList[position] += 10
                                     }
                                 }
                             }
@@ -102,7 +115,6 @@ class HomeFragment : Fragment() {
         recyclerSection.setHasFixedSize(true)
         recyclerSection.configureRecycler(true)
         recyclerSection.adapter = adapterSection
-
     }
 
     private fun initRecyclerAnimeMangaList(animeManga: List<AnimeManga>): DynamicAdapter<AnimeManga> {
@@ -116,5 +128,7 @@ class HomeFragment : Fragment() {
         )
 
     }
+
+
 
 }
