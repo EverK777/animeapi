@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/backgroundScreen"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/sectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:textSize="@dimen/big_text_view"
+        android:text="Section type"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMangaAnime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sectionTitle"/>
+
+
+
+
+
+</RelativeLayout>
