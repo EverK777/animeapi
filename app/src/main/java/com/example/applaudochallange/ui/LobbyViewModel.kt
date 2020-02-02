@@ -9,27 +9,28 @@ import com.example.applaudochallange.models.AnimeManga
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LobbyViewModel (private val repository: KitsuRepository) : ViewModel() {
+class LobbyViewModel(private val repository: KitsuRepository) : ViewModel() {
 
     // first element of pair is anime and second manga
-    private val animeMangaList : MutableLiveData<ArrayList<ArrayList<AnimeManga>>> = MutableLiveData()
-    private val animeMangaPagination : MutableLiveData<ArrayList<AnimeManga>> = MutableLiveData()
+    private val animeMangaList: MutableLiveData<ArrayList<ArrayList<AnimeManga>>> =
+        MutableLiveData()
+    private val animeMangaPagination: MutableLiveData<ArrayList<AnimeManga>> = MutableLiveData()
+    private val filteredItem: MutableLiveData<ArrayList<AnimeManga>> = MutableLiveData()
 
 
-
-    fun requestAnimeMangaList(numberOfElements : String){
+    fun requestAnimeMangaList(numberOfElements: String) {
         viewModelScope.launch(Dispatchers.IO) {
-           val animeFetched = repository.fetchAnime(numberOfElements, "0")
-           val mangaFetched= repository.fetchManga(numberOfElements, "0")
+            val animeFetched = repository.fetchAnime(numberOfElements, "0")
+            val mangaFetched = repository.fetchManga(numberOfElements, "0")
 
-           val animeList: ArrayList<AnimeManga> = ArrayList()
-           val mangaList: ArrayList<AnimeManga> = ArrayList()
+            val animeList: ArrayList<AnimeManga> = ArrayList()
+            val mangaList: ArrayList<AnimeManga> = ArrayList()
 
             animeList.addAll(animeFetched)
             mangaList.addAll(mangaFetched)
 
 
-          val dataUnion : ArrayList<ArrayList<AnimeManga>> = ArrayList()
+            val dataUnion: ArrayList<ArrayList<AnimeManga>> = ArrayList()
 
             dataUnion.add(animeList)
             dataUnion.add((mangaList))
@@ -38,18 +39,18 @@ class LobbyViewModel (private val repository: KitsuRepository) : ViewModel() {
         }
     }
 
-    fun getAnimeMangaList() : LiveData<ArrayList<ArrayList<AnimeManga>>>{
+    fun getAnimeMangaList(): LiveData<ArrayList<ArrayList<AnimeManga>>> {
         return animeMangaList
     }
 
-    fun requestNextPage(type:Int,offsetCount:Int){
+    fun requestNextPage(type: Int, offsetCount: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val animeMangaFetched =
-            if(type == 0) {
-                repository.fetchAnime("10", offsetCount.toString())
-            }else {
-                repository.fetchManga("10", offsetCount.toString())
-            }
+                if (type == 0) {
+                    repository.fetchAnime("10", offsetCount.toString())
+                } else {
+                    repository.fetchManga("10", offsetCount.toString())
+                }
 
             val animeMangaLst: ArrayList<AnimeManga> = ArrayList()
 
@@ -59,8 +60,27 @@ class LobbyViewModel (private val repository: KitsuRepository) : ViewModel() {
         }
     }
 
-    fun getNextPage() : LiveData<ArrayList<AnimeManga>>{
+    fun getNextPage(): LiveData<ArrayList<AnimeManga>> {
         return animeMangaPagination
+    }
+
+    fun requestSearchAnime(name: String) {
+        viewModelScope.launch {
+            val filteredAnime = repository.fetchRequestedAnimeSearch(name)
+            val filteredManga= repository.fetchRequestedMangaSearch(name)
+
+            val dataUnion: ArrayList<AnimeManga> = ArrayList()
+
+            dataUnion.addAll(filteredAnime)
+            dataUnion.addAll(filteredManga)
+
+            filteredItem.postValue(dataUnion)
+
+        }
+    }
+
+    fun getFilter(): LiveData<ArrayList<AnimeManga>>{
+        return filteredItem
     }
 
 

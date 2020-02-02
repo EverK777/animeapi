@@ -1,6 +1,5 @@
 package com.example.applaudochallange.data.external.kitsuApiService
 
-import com.example.applaudochallange.models.AnimeManga
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -14,4 +13,9 @@ interface KitsuApi {
     @GET("manga")
     suspend fun getMangaList(@Query("page[limit]")pageNumber:String,
                              @Query("page[offset]")pageOffset:String) : BaseResponse
+    @GET("anime")
+    suspend fun getFilteredAnime(@Query("filter[text]")name:String) : BaseResponse
+
+    @GET("manga")
+    suspend fun getFilteredManga(@Query("filter[text]")name:String) : BaseResponse
 }

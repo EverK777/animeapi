@@ -14,4 +14,24 @@
     <dimen name="x_big_icon">@dimen/_80sdp</dimen>
     <dimen name="xx_big_icon">@dimen/_100sdp</dimen>
 
+    <!-- cover image home -->
+    <dimen name="height_cover">@dimen/_190sdp</dimen>
+    <dimen name="width_cover">@dimen/_130sdp</dimen>
+
+    <!-- cover image detail -->
+    <dimen name="height_cover_detail">@dimen/_170sdp</dimen>
+    <dimen name="width_cover_detail">@dimen/_120sdp</dimen>
+
+    <!-- cover image detail collapse -->
+    <dimen name="height_cover_detail_collapse">@dimen/_110sdp</dimen>
+    <dimen name="width_cover_detail_collapse">@dimen/_70sdp</dimen>
+
+    <!-- toolbar height -->
+    <dimen name="toolbar_height"> @dimen/_40sdp</dimen>
+
+    <!-- HEIGHT COVER 2 -->
+    <dimen name="height_cover2">@dimen/_150sdp</dimen>
+
+
+
 </resources>

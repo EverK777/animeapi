@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class KitsuRepository {
 
     private var kitsuApi: KitsuApi = Retrofit.Builder()
-        .baseUrl(Constants.kitsuBaseUrl)
+        .baseUrl(Constants.KITSU_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
         .build()
         .create(KitsuApi::class.java)
@@ -23,6 +23,14 @@ class KitsuRepository {
 
      suspend fun fetchManga(paginationNumber : String, paginationOffset : String) : List<AnimeManga>{
         return kitsuApi.getMangaList(paginationNumber,paginationOffset).animeMangaList
+    }
+
+    suspend fun fetchRequestedAnimeSearch(name : String): List<AnimeManga>{
+        return kitsuApi.getFilteredAnime(name).animeMangaList
+    }
+
+    suspend fun fetchRequestedMangaSearch(name : String): List<AnimeManga>{
+        return kitsuApi.getFilteredManga(name).animeMangaList
     }
 
 }

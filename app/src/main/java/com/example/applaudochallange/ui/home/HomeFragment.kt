@@ -1,11 +1,13 @@
 package com.example.applaudochallange.ui.home
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.view.ViewCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +17,7 @@ import coil.api.load
 import com.example.applaudochallange.R
 import com.example.applaudochallange.extentions.configureRecycler
 import com.example.applaudochallange.models.AnimeManga
+import com.example.applaudochallange.ui.LobbyActivity
 import com.example.applaudochallange.ui.LobbyViewModel
 import com.example.applaudochallange.utils.DynamicAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -32,7 +35,7 @@ class HomeFragment : NavHostFragment() {
     private val offsetList: ArrayList<Int> = ArrayList()
     private var positionScrolled = 0
     private var isLoading = false
-    private lateinit var mainView : View
+    private lateinit var mainView: View
 
 
     override fun onCreateView(
@@ -40,9 +43,7 @@ class HomeFragment : NavHostFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        if(savedInstanceState == null){
-            mainView = inflater.inflate(R.layout.fragment_home, container, false)
-        }
+        mainView = inflater.inflate(R.layout.fragment_home, container, false)
         return mainView
     }
 
@@ -76,11 +77,12 @@ class HomeFragment : NavHostFragment() {
         adapterSection = DynamicAdapter(
             layout = R.layout.item_section_type,
             entries = listSection,
-            action = fun(viewHolder, view, item, position) {
+            action = @SuppressLint("DefaultLocale")
+            fun(viewHolder, view, item, position) {
                 if (!item.isNullOrEmpty()) {
                     listAdapter.add(initRecyclerAnimeMangaList(item))
                     offsetList.add(10)
-                    view.sectionTitle.text = item[0].type
+                    view.sectionTitle.text = item[0].type.capitalize()
                     view.recyclerMangaAnime.setHasFixedSize(true)
                     view.recyclerMangaAnime.configureRecycler(false)
                     view.recyclerMangaAnime.adapter = listAdapter[position]
@@ -96,12 +98,12 @@ class HomeFragment : NavHostFragment() {
                                 if (visibleItemCount != null) {
                                     if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
                                         view.progressPagination.visibility = View.VISIBLE
-                                            positionScrolled = position
-                                            lobbyViewModel.requestNextPage(
-                                                position,
-                                                offsetList[position]
-                                            )
-                                            offsetList[position] += 10
+                                        positionScrolled = position
+                                        lobbyViewModel.requestNextPage(
+                                            position,
+                                            offsetList[position]
+                                        )
+                                        offsetList[position] += 10
                                     }
                                 }
                             }
@@ -124,11 +126,15 @@ class HomeFragment : NavHostFragment() {
             action = fun(viewHolder, view, item, position) {
                 view.animeMangaTitle.text = item.attributes.canonicalTitle
                 view.imageCover.load(item.attributes.posterImage.large)
+
+                view.cardContainer.setOnClickListener {
+                    ViewCompat.setTransitionName(view.imageCover, item.attributes.canonicalTitle)
+                    (activity as LobbyActivity).goToItemDetail(item,view.imageCover)
+                }
             }
         )
 
     }
-
 
 
 }
