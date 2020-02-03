@@ -15,6 +15,10 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        backIcon.setOnClickListener {
+            supportFinishAfterTransition()
+        }
+
 
         val extras = intent.extras
         val item: AnimeManga? = extras?.getParcelable(Constants.ITEM_EXTRA_DETAIL)
@@ -28,7 +32,11 @@ class DetailActivity : AppCompatActivity() {
             imageCover.load(item.attributes.posterImage.large)
             serieTv.text = item.attributes.canonicalTitle
             coverCollapse.load(item.attributes.coverImage?.large)
-           // synopsisText.text = item.attributes.synopsis
+            synopsisText.text = item.attributes.synopsis
+            typeTV.text = item.type
+            startDateTV.text = if(item.attributes.startDate.isNullOrEmpty()) "-" else item.attributes.startDate
+            endDateTV.text = if(item.attributes.endDate.isNullOrEmpty()) "-" else item.attributes.endDate
+            episodesTV.text = if(item.attributes.episodeCount.isNullOrEmpty()) "-" else item.attributes.episodeCount
 
         }
     }

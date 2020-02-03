@@ -29,6 +29,7 @@
         <Constraint
             android:id="@+id/coverCollapse"
             android:layout_width="match_parent"
+            android:alpha="1.0"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="@dimen/height_cover2"/>
@@ -89,7 +90,7 @@
         <Constraint
             android:id="@+id/synopsisScroll"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/roundedContainer" />
 
 
@@ -102,6 +103,7 @@
         <Constraint
             android:id="@+id/coverCollapse"
             android:layout_width="match_parent"
+            android:alpha="0.8"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="@dimen/height_cover2"/>
@@ -126,7 +128,7 @@
             android:layout_height="@dimen/height_cover_detail_collapse"
             android:elevation="0dp"
             android:rotation="0"
-            android:alpha="0.5"
+            android:alpha="0.8"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/coverCollapse"
@@ -163,7 +165,7 @@
         <Constraint
             android:id="@+id/synopsisScroll"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:elevation="4dp"
             app:layout_constraintTop_toTopOf="@id/roundedContainer" />
 

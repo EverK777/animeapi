@@ -36,6 +36,7 @@ class HomeFragment : NavHostFragment() {
     private var positionScrolled = 0
     private var isLoading = false
     private lateinit var mainView: View
+    private var itemClicked = false
 
 
     override fun onCreateView(
@@ -127,9 +128,13 @@ class HomeFragment : NavHostFragment() {
                 view.animeMangaTitle.text = item.attributes.canonicalTitle
                 view.imageCover.load(item.attributes.posterImage.large)
 
-                view.cardContainer.setOnClickListener {
-                    ViewCompat.setTransitionName(view.imageCover, item.attributes.canonicalTitle)
-                    (activity as LobbyActivity).goToItemDetail(item,view.imageCover)
+                view.setOnClickListener {
+                    if(!itemClicked){
+                        itemClicked = true
+                        ViewCompat.setTransitionName(view.imageCover, item.attributes.canonicalTitle)
+                        (activity as LobbyActivity).goToItemDetail(item,view.imageCover)
+                        itemClicked = false
+                    }
                 }
             }
         )
