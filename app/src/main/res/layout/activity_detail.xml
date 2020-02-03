@@ -4,26 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/motion_collapse_anim"
     android:background="@color/backgroundScreenWhite"
+    app:layoutDescription="@xml/motion_collapse_anim"
     tools:context=".ui.detailAnimeManga.DetailActivity">
 
     <ImageView
         android:id="@+id/coverCollapse"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="@dimen/height_cover2"
         android:background="@drawable/background_screen"
-        android:layout_height="@dimen/height_cover2"/>
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/backIcon"
         android:layout_width="@dimen/small_icon"
         android:layout_height="@dimen/small_icon"
+        android:src="@drawable/ic_arrow_back_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_arrow_back_black_24dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.cardview.widget.CardView
@@ -31,12 +31,12 @@
         android:layout_width="@dimen/width_cover_detail_collapse"
         android:layout_height="@dimen/height_cover_detail_collapse"
         android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
         android:elevation="4dp"
         android:transformPivotX="@dimen/width_cover_detail_collapse"
-        android:layout_marginStart="20dp"
         app:cardCornerRadius="12dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/coverCollapse"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coverCollapse">
 
         <RelativeLayout
@@ -57,28 +57,29 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:elevation="0dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/coverCollapse"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coverCollapse"
         app:shape_roundRect_topLeftRadius="30dp"
         app:shape_roundRect_topRightRadius="30dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundScreenWhite"/>
+            android:background="@color/backgroundScreenWhite" />
     </com.github.florent37.shapeofview.shapes.RoundRectView>
 
     <TextView
         android:id="@+id/serieTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Naruto"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:maxLength="20"
-        android:textStyle="bold"
+        android:text="Naruto"
+        android:textColor="@color/textColorDark"
         android:textSize="@dimen/big_text_view"
-        android:textColor="@color/textColorDark"/>
+        android:textStyle="bold" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/synopsisScroll"
@@ -90,8 +91,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/backgroundScreenWhite"
-            android:orientation="vertical"
             android:minHeight="300dp"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <LinearLayout
@@ -104,7 +105,7 @@
                     android:layout_width="@dimen/small_icon"
                     android:layout_height="@dimen/small_icon"
                     android:src="@drawable/ic_type_black_24dp"
-                    android:tint="@color/textColorDark"/>
+                    android:tint="@color/textColorDark" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,16 +120,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Anime"
                     android:minWidth="@dimen/_56sdp"
+                    android:text="Anime"
                     android:textColor="@color/textColorDark"
                     android:textSize="@dimen/normal_text_view" />
+
                 <ImageView
                     android:layout_width="@dimen/small_icon"
                     android:layout_height="@dimen/small_icon"
-                    android:src="@drawable/ic_date_range_black_24dp"
                     android:layout_marginStart="20dp"
-                    android:tint="@color/textColorDark"/>
+                    android:src="@drawable/ic_date_range_black_24dp"
+                    android:tint="@color/textColorDark" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -146,6 +149,7 @@
                     android:textColor="@color/textColorDark"
                     android:textSize="@dimen/normal_text_view" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -156,7 +160,7 @@
                     android:layout_width="@dimen/small_icon"
                     android:layout_height="@dimen/small_icon"
                     android:src="@drawable/ic_episodes_number_black_24dp"
-                    android:tint="@color/textColorDark"/>
+                    android:tint="@color/textColorDark" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,16 +175,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="1000"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:minWidth="45dp"
-                    android:textColor="@color/textColorDark"
-                    android:textSize="@dimen/normal_text_view" />
+                    android:text="1000"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/normal_text_view"
+                    android:textStyle="italic" />
+
                 <ImageView
                     android:layout_width="@dimen/small_icon"
                     android:layout_height="@dimen/small_icon"
-                    android:src="@drawable/ic_date_range_black_24dp"
                     android:layout_marginStart="20dp"
-                    android:tint="@color/textColorDark"/>
+                    android:src="@drawable/ic_date_range_black_24dp"
+                    android:tint="@color/textColorDark" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -199,14 +208,42 @@
                     android:textSize="@dimen/normal_text_view" />
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/loadingContainer"
+                android:layout_width="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressCharacter"
+                    android:layout_width="@dimen/small_icon"
+                    android:layout_height="@dimen/small_icon"
+                    android:layout_centerHorizontal="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/small_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/textColorDark"
+                    android:layout_below="@id/progressCharacter"
+                    android:text="Loading Characters"/>
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewCharacters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textAlignment="textStart"
                 android:text="Synopsis:"
+                android:textAlignment="textStart"
                 android:textColor="@color/textColorDark"
-                android:textSize="@dimen/normal_text_view"/>
+                android:textSize="@dimen/normal_text_view" />
+
             <TextView
                 android:id="@+id/synopsisText"
                 android:layout_width="match_parent"
@@ -214,18 +251,13 @@
                 android:layout_marginTop="4dp"
                 android:textAlignment="textStart"
                 android:textColor="@color/textColorDark"
-                android:textSize="@dimen/normal_text_view"/>
+                android:textSize="@dimen/normal_text_view" />
 
 
         </LinearLayout>
 
 
-
-
-
-
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -52,10 +52,12 @@ class HomeFragment : NavHostFragment() {
         super.onActivityCreated(savedInstanceState)
         initRecyclerSection()
         lobbyViewModel.getAnimeMangaList().observe(viewLifecycleOwner, Observer {
-            if (it != null && ::adapterSection.isInitialized) {
+            if (!it.isNullOrEmpty() && ::adapterSection.isInitialized) {
                 listSection.addAll(it)
                 adapterSection.notifyDataSetChanged()
                 loadingLayout.visibility = View.GONE
+            }else{
+
             }
         })
         lobbyViewModel.getNextPage().observe(viewLifecycleOwner, Observer {
@@ -68,6 +70,8 @@ class HomeFragment : NavHostFragment() {
                         .visibility = View.GONE
                     isLoading = false
                 }
+            }else {
+
             }
         })
     }
@@ -83,7 +87,7 @@ class HomeFragment : NavHostFragment() {
                 if (!item.isNullOrEmpty()) {
                     listAdapter.add(initRecyclerAnimeMangaList(item))
                     offsetList.add(10)
-                    view.sectionTitle.text = item[0].type.capitalize()
+                    view.sectionTitle.text = item[0].type?.capitalize()
                     view.recyclerMangaAnime.setHasFixedSize(true)
                     view.recyclerMangaAnime.configureRecycler(false)
                     view.recyclerMangaAnime.adapter = listAdapter[position]
@@ -125,13 +129,13 @@ class HomeFragment : NavHostFragment() {
             layout = R.layout.item_anime_manga,
             entries = animeManga,
             action = fun(viewHolder, view, item, position) {
-                view.animeMangaTitle.text = item.attributes.canonicalTitle
-                view.imageCover.load(item.attributes.posterImage.large)
+                view.animeMangaTitle.text = item.attributes?.canonicalTitle
+                view.imageCover.load(item.attributes?.posterImage?.large)
 
                 view.setOnClickListener {
                     if(!itemClicked){
                         itemClicked = true
-                        ViewCompat.setTransitionName(view.imageCover, item.attributes.canonicalTitle)
+                        ViewCompat.setTransitionName(view.imageCover, item.attributes?.canonicalTitle)
                         (activity as LobbyActivity).goToItemDetail(item,view.imageCover)
                         itemClicked = false
                     }

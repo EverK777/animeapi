@@ -12,6 +12,10 @@ data class Attributes(
     val posterImage :PosterImage,
     val coverImage : PosterImage?,
     val status : String?,
-    val synopsis : String?
+    val synopsis : String?,
+    val description : String?,
+    val image : PosterImage?,
+    val name : String
+
 
 ) : Serializable

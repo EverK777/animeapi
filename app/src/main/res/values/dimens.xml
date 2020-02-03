@@ -22,6 +22,10 @@
     <dimen name="height_cover_detail">@dimen/_170sdp</dimen>
     <dimen name="width_cover_detail">@dimen/_120sdp</dimen>
 
+    <!-- cover image character -->
+    <dimen name="height_cover_character">@dimen/_130sdp</dimen>
+    <dimen name="width_cover_character">@dimen/_90sdp</dimen>
+
     <!-- cover image detail collapse -->
     <dimen name="height_cover_detail_collapse">@dimen/_110sdp</dimen>
     <dimen name="width_cover_detail_collapse">@dimen/_70sdp</dimen>

@@ -20,8 +20,8 @@ class LobbyViewModel(private val repository: KitsuRepository) : ViewModel() {
 
     fun requestAnimeMangaList(numberOfElements: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val animeFetched = repository.fetchAnime(numberOfElements, "0")
-            val mangaFetched = repository.fetchManga(numberOfElements, "0")
+            val animeFetched = repository.fetchAnime("anime",numberOfElements, "0")
+            val mangaFetched = repository.fetchAnime("manga",numberOfElements, "0")
 
             val animeList: ArrayList<AnimeManga> = ArrayList()
             val mangaList: ArrayList<AnimeManga> = ArrayList()
@@ -47,9 +47,9 @@ class LobbyViewModel(private val repository: KitsuRepository) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val animeMangaFetched =
                 if (type == 0) {
-                    repository.fetchAnime("10", offsetCount.toString())
+                    repository.fetchAnime("anime","10", offsetCount.toString())
                 } else {
-                    repository.fetchManga("10", offsetCount.toString())
+                    repository.fetchAnime("manga","10", offsetCount.toString())
                 }
 
             val animeMangaLst: ArrayList<AnimeManga> = ArrayList()
@@ -66,8 +66,8 @@ class LobbyViewModel(private val repository: KitsuRepository) : ViewModel() {
 
     fun requestSearchAnime(name: String) {
         viewModelScope.launch {
-            val filteredAnime = repository.fetchRequestedAnimeSearch(name)
-            val filteredManga= repository.fetchRequestedMangaSearch(name)
+            val filteredAnime = repository.fetchRequestedAnimeSearch("anime",name)
+            val filteredManga = repository.fetchRequestedAnimeSearch("manga",name)
 
             val dataUnion: ArrayList<AnimeManga> = ArrayList()
 

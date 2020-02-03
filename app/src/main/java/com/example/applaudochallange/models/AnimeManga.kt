@@ -6,7 +6,7 @@ import java.io.Serializable
 
 @Parcelize
 data class AnimeManga(
-    val id : String,
-    val type : String,
-    val attributes : Attributes
+    val id : String?,
+    val type : String?,
+    val attributes : Attributes?
 ) :  Parcelable

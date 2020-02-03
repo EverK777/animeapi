@@ -1,10 +1,9 @@
 package com.example.applaudochallange.data.external.kitsuApiService
 
 import com.example.applaudochallange.models.AnimeManga
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class BaseResponse(
-    val data : List<AnimeManga>?,
+data class CharacterResponse(
+    val data : AnimeManga,
     val status : String
 ): Serializable

@@ -110,7 +110,7 @@ class LobbyActivity : AppCompatActivity() {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(Constants.ITEM_EXTRA_DETAIL, item)
         intent.putExtra(
-            item.attributes.canonicalTitle,
+            item.attributes?.canonicalTitle,
             ViewCompat.getTransitionName(sharedImageView)
         )
 

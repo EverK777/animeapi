@@ -54,18 +54,18 @@ class FilterFragment : Fragment() {
             layout = R.layout.item_filtered,
             entries = animeMangaFiltered,
             action = fun(_, view, item, _) {
-                view.imageCover.load(item.attributes.posterImage.large)
-                view.nameSerieTV.text = item.attributes.canonicalTitle
-                view.startDateTV.text = if(item.attributes.startDate.isNullOrEmpty()) "-" else item.attributes.startDate
-                view.endDateTV.text = if(item.attributes.endDate.isNullOrEmpty()) "-" else item.attributes.endDate
-                view.episodeNumberTV.text = if(item.attributes.episodeCount.isNullOrEmpty()) "-" else item.attributes.episodeCount
-                view.statusTV.text = if(item.attributes.status.isNullOrEmpty()) "-" else item.attributes.status
+                view.imageCover.load(item.attributes?.posterImage?.large)
+                view.nameSerieTV.text = item.attributes?.canonicalTitle
+                view.startDateTV.text = if(item.attributes?.startDate.isNullOrEmpty()) "-" else item.attributes?.startDate
+                view.endDateTV.text = if(item.attributes?.endDate.isNullOrEmpty()) "-" else item.attributes?.endDate
+                view.episodeNumberTV.text = if(item.attributes?.episodeCount.isNullOrEmpty()) "-" else item.attributes?.episodeCount
+                view.statusTV.text = if(item.attributes?.status.isNullOrEmpty()) "-" else item.attributes?.status
                 view.categoryTV.text = item.type
 
                 view.setOnClickListener {
                     if(!itemClicked){
                         itemClicked = true
-                        ViewCompat.setTransitionName(view.imageCover, item.attributes.canonicalTitle)
+                        ViewCompat.setTransitionName(view.imageCover, item.attributes?.canonicalTitle)
                         (activity as LobbyActivity).goToItemDetail(item,view.imageCover)
                         itemClicked = false
                     }
