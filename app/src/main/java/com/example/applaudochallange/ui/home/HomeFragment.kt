@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.applaudochallange.R
 import com.example.applaudochallange.extentions.configureRecycler
-import com.example.applaudochallange.models.AnimeManga
+import com.example.applaudochallange.models.Data
 import com.example.applaudochallange.ui.LobbyActivity
 import com.example.applaudochallange.ui.LobbyViewModel
 import com.example.applaudochallange.utils.DynamicAdapter
@@ -29,9 +29,9 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class HomeFragment : NavHostFragment() {
 
     private val lobbyViewModel: LobbyViewModel by sharedViewModel()
-    private val listSection: ArrayList<ArrayList<AnimeManga>> = ArrayList()
-    private lateinit var adapterSection: DynamicAdapter<ArrayList<AnimeManga>>
-    private val listAdapter: ArrayList<DynamicAdapter<AnimeManga>> = ArrayList()
+    private val listSection: ArrayList<ArrayList<Data>> = ArrayList()
+    private lateinit var adapterSection: DynamicAdapter<ArrayList<Data>>
+    private val listAdapter: ArrayList<DynamicAdapter<Data>> = ArrayList()
     private val offsetList: ArrayList<Int> = ArrayList()
     private var positionScrolled = 0
     private var isLoading = false
@@ -105,7 +105,7 @@ class HomeFragment : NavHostFragment() {
                                         view.progressPagination.visibility = View.VISIBLE
                                         positionScrolled = position
                                         lobbyViewModel.requestNextPage(
-                                            position,
+                                            item[position].type?:"anime",
                                             offsetList[position]
                                         )
                                         offsetList[position] += 10
@@ -124,10 +124,10 @@ class HomeFragment : NavHostFragment() {
         recyclerSection.adapter = adapterSection
     }
 
-    private fun initRecyclerAnimeMangaList(animeManga: List<AnimeManga>): DynamicAdapter<AnimeManga> {
+    private fun initRecyclerAnimeMangaList(data: List<Data>): DynamicAdapter<Data> {
         return DynamicAdapter(
             layout = R.layout.item_anime_manga,
-            entries = animeManga,
+            entries = data,
             action = fun(viewHolder, view, item, position) {
                 view.animeMangaTitle.text = item.attributes?.canonicalTitle
                 view.imageCover.load(item.attributes?.posterImage?.large)

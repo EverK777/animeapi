@@ -12,7 +12,7 @@ import coil.api.load
 
 import com.example.applaudochallange.R
 import com.example.applaudochallange.extentions.configureRecycler
-import com.example.applaudochallange.models.AnimeManga
+import com.example.applaudochallange.models.Data
 import com.example.applaudochallange.ui.LobbyActivity
 import com.example.applaudochallange.ui.LobbyViewModel
 import com.example.applaudochallange.utils.DynamicAdapter
@@ -23,8 +23,8 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class FilterFragment : Fragment() {
 
     private val lobbyViewModel: LobbyViewModel by sharedViewModel()
-    private val animeMangaFiltered : ArrayList<AnimeManga> = ArrayList()
-    private lateinit var adapter : DynamicAdapter<AnimeManga>
+    private val dataFiltered : ArrayList<Data> = ArrayList()
+    private lateinit var adapter : DynamicAdapter<Data>
     private var itemClicked = false
 
 
@@ -40,8 +40,8 @@ class FilterFragment : Fragment() {
         lobbyViewModel.getFilter().observe(viewLifecycleOwner, Observer {
             if(it !=null){
                 loadingLayout.visibility = View.GONE
-                animeMangaFiltered.clear()
-                animeMangaFiltered.addAll(it)
+                dataFiltered.clear()
+                dataFiltered.addAll(it)
                 adapter.notifyDataSetChanged()
 
             }
@@ -52,7 +52,7 @@ class FilterFragment : Fragment() {
     private fun initRecycler(){
         adapter = DynamicAdapter(
             layout = R.layout.item_filtered,
-            entries = animeMangaFiltered,
+            entries = dataFiltered,
             action = fun(_, view, item, _) {
                 view.imageCover.load(item.attributes?.posterImage?.large)
                 view.nameSerieTV.text = item.attributes?.canonicalTitle

@@ -2,11 +2,11 @@ package com.example.applaudochallange.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
+
 
 @Parcelize
-data class AnimeManga(
+data class Data(
     val id : String?,
     val type : String?,
-    val attributes : Attributes?
+    var attributes : Attributes?
 ) :  Parcelable

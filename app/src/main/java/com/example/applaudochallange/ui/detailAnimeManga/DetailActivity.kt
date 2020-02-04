@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import coil.api.load
 import com.example.applaudochallange.R
 import com.example.applaudochallange.extentions.configureRecycler
-import com.example.applaudochallange.models.AnimeManga
+import com.example.applaudochallange.models.Data
 import com.example.applaudochallange.utils.Constants
 import com.example.applaudochallange.utils.DynamicAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -30,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
 
 
         val extras = intent.extras
-        val item: AnimeManga? = extras?.getParcelable(Constants.ITEM_EXTRA_DETAIL)
+        val item: Data? = extras?.getParcelable(Constants.ITEM_EXTRA_DETAIL)
         viewModel.requestCharacters(item?.type!!,item.id!!)
 
         viewModel.getCharacters().observe(this, Observer {
@@ -44,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
         configView(item,extras)
     }
 
-    private fun configureRecyclerCharacters(data: List<AnimeManga>) {
+    private fun configureRecyclerCharacters(data: List<Data>) {
 
         val dynamicAdapter = DynamicAdapter(
             layout = R.layout.item_characters,
@@ -59,9 +58,10 @@ class DetailActivity : AppCompatActivity() {
         recyclerViewCharacters.setHasFixedSize(true)
         recyclerViewCharacters.configureRecycler(false)
         recyclerViewCharacters.adapter = dynamicAdapter
+        recyclerViewCharacters.isNestedScrollingEnabled = false
     }
 
-    private fun configView(item: AnimeManga?, extras : Bundle?) {
+    private fun configView(item: Data?, extras : Bundle?) {
         if(item != null && extras !=null){
             val imageTransName = extras.getString(item.attributes?.canonicalTitle)
             imageCover.transitionName = imageTransName

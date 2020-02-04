@@ -14,7 +14,7 @@ import com.example.applaudochallange.R
 import com.example.applaudochallange.extentions.hideKeyboard
 import com.example.applaudochallange.extentions.revealAnimation
 import com.example.applaudochallange.extentions.revealClose
-import com.example.applaudochallange.models.AnimeManga
+import com.example.applaudochallange.models.Data
 import com.example.applaudochallange.ui.detailAnimeManga.DetailActivity
 import com.example.applaudochallange.ui.filter.FilterFragment
 import com.example.applaudochallange.ui.home.HomeFragment
@@ -106,7 +106,7 @@ class LobbyActivity : AppCompatActivity() {
         }
     }
 
-    fun goToItemDetail(item:AnimeManga,sharedImageView: ImageView){
+    fun goToItemDetail(item:Data, sharedImageView: ImageView){
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(Constants.ITEM_EXTRA_DETAIL, item)
         intent.putExtra(
