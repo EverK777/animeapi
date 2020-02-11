@@ -8,9 +8,11 @@
         app:duration="200"
         motion:motionInterpolator="linear">
         <OnSwipe
+            app:onTouchUp="stop"
             app:dragDirection="dragUp"
-            app:touchAnchorId="@id/synopsisScroll"
+            app:moveWhenScrollAtTop="true"
             app:touchAnchorSide="top"
+            app:touchAnchorId="@id/synopsisScroll"
             />
 
         <KeyFrameSet>
